@@ -23,7 +23,7 @@ public interface NotepadMapper {
     void notepadDelete(Long seq);
 
     //등록된 메모 갯수 조회
-    int notepadCount(NotepadResponse params);
+    int notepadCount();
 
     //조회수 증가
     void updateViewCnt(Long id);

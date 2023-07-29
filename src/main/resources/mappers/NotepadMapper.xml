@@ -54,7 +54,7 @@
     <update id="updateViewCnt" parameterType="long">
         UPDATE dp_notepad
         SET view_cnt = view_cnt + 1
-        WHERE id = #{id}
+        WHERE seq = #{seq}
     </update>
 </mapper>
 
