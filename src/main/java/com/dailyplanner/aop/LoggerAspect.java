@@ -11,9 +11,9 @@ import org.thymeleaf.util.StringUtils;
 @Aspect
 @Component
 public class LoggerAspect {
-/*    @Around("execution(* com.daliyplanner.controller..*Controller.*(..)) || " +
-            "execution(* com.daliyplanner.service..*Service.*(..)) ||" +
-            "execution(* com.daliyplanner.domain..*Mapper.*(..))")
+    @Around("execution(* com.dailyplanner.notepad..*Controller.*(..)) || " +
+            "execution(* com.dailyplanner.notepad..*Service.*(..)) ||" +
+            "execution(* com.dailyplanner.notepad..*Mapper.*(..))")
     public Object printLog(ProceedingJoinPoint joinPoint) throws Throwable{
         String name = joinPoint.getSignature().getDeclaringTypeName();
         String type =
@@ -24,5 +24,5 @@ public class LoggerAspect {
 
         log.debug(type + name + "." + joinPoint.getSignature().getName() + "()");
         return joinPoint.proceed();
-    }*/
+    }
 }

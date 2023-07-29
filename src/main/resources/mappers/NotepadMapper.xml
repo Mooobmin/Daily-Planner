@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dailyplanner.notepad.domain.NotepadMapper">
+
+    <!--메모 전체 조회-->
+    <select id="notepadListAll" resultType="com.dailyplanner.notepad.domain.NotepadResponse">
+        SELECT seq, title, content, writer, view_cnt, notice_yn, fixation_yn, delete_yn, created_date, modified_date
+        FROM dp_notepad
+        WHERE delete_yn = 0
+        ORDER BY seq DESC
+    </select>
+
+    <!--메모 상세 조회-->
+    <select id="notepadDetailById" parameterType="long" resultType="com.dailyplanner.notepad.domain.NotepadResponse">
+        SELECT seq, title, content, writer, view_cnt, notice_yn, delete_yn, created_date
+        FROM dp_notepad
+        WHERE seq = #{value}
+    </select>
+
+    <!--등록된 메모 전체 갯수 조회-->
+    <select id="notepadCount" resultType="int">
+        SELECT count(*)
+        FROM dp_notepad
+        WHERE delete_yn = 0
+    </select>
+
+    <!--메모 등록-->
+    <insert id="notepadSave" parameterType="com.dailyplanner.notepad.domain.NotepadRequest" useGeneratedKeys="true" keyProperty="seq">
+        INSERT INTO dp_notepad(seq, title, content, writer, view_cnt, notice_yn, fixation_yn, delete_yn, created_date, modified_date)
+        VALUES (#{seq}, #{title}, #{content}, #{writer}, 0, #{noticeYn}, #{fixationYn}, 0, NOW(), NULL)
+    </insert>
+
+    <!--메모 수정-->
+    <update id="notepadUpdate" parameterType="com.dailyplanner.notepad.domain.NotepadRequest">
+        UPDATE dp_notepad
+        SET title = #{title},
+            content = #{content},
+            writer = #{writer},
+            notice_yn = #{noticeYn},
+            fixation_yn = #{fixationYn},
+            modified_date = NOW()
+        WHERE seq = #{seq}
+    </update>
+
+    <!--메모 삭제-->
+    <update id="notepadDelete" parameterType="long">
+        UPDATE dp_notepad
+        SET delete_yn = 1
+        WHERE seq = #{seq}
+    </update>
+
+    <!--메모 조회수 증가-->
+    <update id="updateViewCnt" parameterType="long">
+        UPDATE dp_notepad
+        SET view_cnt = view_cnt + 1
+        WHERE id = #{id}
+    </update>
+</mapper>
+
